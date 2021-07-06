@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  /* background-color: white; */
+  background-image: url("./assets/lines.png");
+}
+
+.App {
+  margin: 15px;
+  padding: 15px;
+  background-color: #f2c14e;
+  border-radius: 15px;
+}
