@@ -1,8 +1,10 @@
 import { Fragment, useState, useRef } from "react";
 import classes from "./Form.module.css";
+import "./Form.module.css";
 
 const Form = (props) => {
   const [todoItem, setTodoItem] = useState("");
+  const [itemCounter, setItemCounter] = useState(1);
   const taskInput = useRef(null);
 
   const contentChangeHandler = (e) => {
@@ -12,10 +14,15 @@ const Form = (props) => {
   const submitHandler = (e) => {
     e.preventDefault();
     const data = todoItem;
-    if (!data) return;
-    props.submitHandler({ subject: data });
+    if (!data) {
+      taskInput.current.focus();
+      return;
+    }
+    props.submitHandler({ id: itemCounter, subject: data });
     clearInputs(e);
     taskInput.current.focus();
+    setItemCounter((prevCounter) => console.log(prevCounter));
+    
   };
 
   const clearInputs = (e) => {
@@ -28,22 +35,18 @@ const Form = (props) => {
 
   return (
     <Fragment>
-      {todoItem === "" ? <h3>enter todo</h3> : ""}
+      {/* {todoItem === "" ? <h3>enter todo</h3> : ""} */}
       <form
         onSubmit={(e) => submitHandler(e)}
         className={classes.form}
         autoComplete="off"
       >
-        <div className="form-group mb-2">
-          <label htmlFor="staticEmail2" className="sr-only">
-            Enter Task
-          </label>
-        </div>
-        <div className="form-group mb-2">
+        <div className="form-group mb-2"></div>
+        <div className=" form-group mb-2">
           <input
             ref={taskInput}
             type="text"
-            className="form-control"
+            className={classes.input + " form-control"}
             id="inputTask"
             placeholder="Enter Task..."
             onChange={(e) => {
